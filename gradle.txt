@@ -1,0 +1,176 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'me.tatarka:gradle-retrolambda:3.1.0'
+        classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+
+
+
+
+// ======================================================================================
+
+
+
+
+
+
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'app_name_mobsolutions'
+            keyPassword '*******'
+            storeFile file('D:/KeyStore/Ritual_keyStore.jks')
+            storePassword '********'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "********"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+ext {
+    supportLibraryVersion = '25.3.1'
+    playServicesVersion = '10.2.1'
+    firebaseServicesVersion = '10.2.1'
+    retrofitVersion = '2.1.0'
+    moxyVersion = '1.5.1'
+}
+
+dependencies {
+    compile 'com.android.support:multidex:1.0.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    // Android
+    // supportlibrary
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$supportLibraryVersion"
+    compile "com.android.support:support-annotations:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+	
+    //play-services
+    compile "com.google.android.gms:play-services:$playServicesVersion"
+    compile "com.google.android.gms:play-services-base:$playServicesVersion"
+    compile "com.google.android.gms:play-services-fitness:$playServicesVersion"
+    compile "com.google.android.gms:play-services-wearable:$playServicesVersion"
+    compile "com.google.android.gms:play-services-nearby:$playServicesVersion"
+	
+    //firebase
+    compile "com.google.firebase:firebase-core:$firebaseServicesVersion"
+    compile "com.google.firebase:firebase-messaging:$firebaseServicesVersion"
+    compile "com.google.firebase:firebase-crash:$firebaseServicesVersion"
+    compile "com.google.firebase:firebase-auth:$firebaseServicesVersion"
+	
+    //design
+	// mask on edit text
+    compile 'com.redmadrobot:inputmask:2.2.1'
+	//emoji - smile
+    compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+	//bottom photo - picker
+    compile 'gun0912.ted:tedbottompicker:1.0.11'
+	//easy permission
+    compile 'gun0912.ted:tedpermission:1.0.3'
+    //image - picasso
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+	
+    //BUS - route object
+    compile 'org.greenrobot:eventbus:3.0.0'
+	
+    //MVP - moxy
+    compile "com.arello-mobile:moxy:$moxyVersion"
+    compile "com.arello-mobile:moxy-android:$moxyVersion"
+    compile "com.arello-mobile:moxy-app-compat:$moxyVersion"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$moxyVersion"
+	
+    //RxJava
+//    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex:rxjava:1.2.3'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+	
+    // ButterKnife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+	
+    // Dagger
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    compile 'com.google.dagger:dagger:2.9'
+    provided 'javax.annotation:jsr250-api:1.0'
+	
+    //swagger
+    compile 'io.swagger:swagger-annotations:1.5.13'
+    compile 'io.swagger:swagger-annotations:1.5.0'
+	
+    // AutoValue / PaperParcel
+    compile 'com.google.auto.value:auto-value:1.3'
+    compile 'nz.bradcampbell:paperparcel:2.0.0-beta1'
+    annotationProcessor 'nz.bradcampbell:paperparcel-compiler:2.0.0-beta1'
+	
+    //Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+	
+    //OkHttp
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile 'com.squareup.okio:okio:1.11.0'
+	
+    //Gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+		
+    //vk
+    compile 'com.vk:androidsdk:1.6.5'
+    //fb
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+}
+apply plugin: 'com.google.gms.google-services'
